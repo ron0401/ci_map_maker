@@ -1,0 +1,20 @@
+image: ronkabu0401/ros-2dmap-maker:latest
+build:
+  stage: build
+  script: 
+    - export BAG_PLAY_SPEED=10
+    - bash -c /tmp/start.sh
+    - echo $(pwd)
+    - cp /home/ubuntu/map/map.pgm .
+    - cp /home/ubuntu/map/map.yaml .
+    - sudo chown ubuntu:ubuntu /home/ubuntu/volume
+    - echo fffff > /home/ubuntu/volume/b.txt
+    - cp /tmp/rosbag/rosbag.bag .
+    # - cd /home/ubuntu/map
+    # - echo "artifact from project:$CI_PROJECT_PATH, branch:$CI_COMMIT_BRANCH, job_url:$CI_JOB_URL" > artifact.txt
+    
+  artifacts:
+    paths:
+      - map.pgm
+      - map.yaml
+      - rosbag.bag
